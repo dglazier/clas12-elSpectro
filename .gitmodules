@@ -1,0 +1,3 @@
+[submodule "elSpectro"]
+	path = elSpectro
+	url = https://github.com/dglazier/elSpectro
