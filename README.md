@@ -1,5 +1,11 @@
 # clas12-elSpectro
-clas12-mcgen friendly interface to elSpectro event generator
+clas12-mcgen friendly interface to elSpectro event generator.
+
+elSpectro provides efficient sampling of electron scattering phase space
+distributions for any final state, from which arbitrary models can be built on.
+In particular an interface to jpacPhoto is used to build models
+based on scattering amplitudes.
+
 
 # INSTALL
 
