@@ -2,7 +2,7 @@ void TestScript(C12Config config){
 
   config.Print();
   
-  auto ebeamE=config._eBeam;
+  auto ebeamE=config._beamP;
   
   elSpectro::LorentzVector elbeam(0,0,ebeamE,elSpectro::escat::E_el(ebeamE));
   elSpectro::LorentzVector prbeam(0,0,0,elSpectro::escat::M_pr());
@@ -23,19 +23,9 @@ void TestScript(C12Config config){
   //create mesonex electroproduction of X + proton
   auto production=mesonex( ebeamE ,  new DecayModelQ2W{0, pGammaStarDecay });
   production->GiveZVertexDist( new DistUniform(-3-2.5,-3+2.5) );
-  // ---------------------------------------------------------------------------
-  // Initialize LUND
-  // ---------------------------------------------------------------------------
-  
-  writer(new LundWriter{config._outFile.Data()});
-  
-  //initilase the generator, may take some time for making distribution tables 
-  initGenerator();
-  generator().SetNEvents(config._nEvents);
-  
-  while(finishedGenerator()==false){
-    nextEvent();
-    countGenEvent();
-  }
-  
+
+
+  c12process(config);
+
+
 }

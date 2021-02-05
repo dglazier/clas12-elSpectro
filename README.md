@@ -28,3 +28,26 @@ Runs like
 
 Where a script (here TestScript.C) is used to configure a users
 own generator model.
+
+
+# Adding you own script
+
+You script should configure your desired final state using the additional
+information passed by C12Config config :
+
+	    Long64_t _nEvents=1;//--trig  , number of events in output file
+  	    UInt_t _seed=0; //--seed  , zero=>Random seed, 
+	    TString _outFile={"clas12-elSpectro.dat"}; //--out , output filename
+	    TString _misc={""}; //--misc , additional string users can use in their script
+	    Double_t _beamP=10.4; //--ebeam , e- beam energy in GeV
+
+Your script should have a clear name and inside you should define a function with the same name which will be called by clas2-elspectro. e.g. in MesonEx_p2pi_Flat_s_give_t_M2pi.C
+
+     	    void MesonEx_p2pi_Flat_s_give_t_M2pi(C12Config config) {
+
+Typically you can start by setting the beam and target LorentzVectors, getting the beamenergy from the config :
+
+	  auto ebeamP=config._eBeam;
+	  LorentzVector elbeam(0,0,ebeamP,escat::E_el(ebeamP));
+	  LorentzVector prtarget(0,0,0,escat::M_pr());
+

@@ -6,6 +6,7 @@
 #include <TRandom.h>
 
 #include "C12Config.h"
+#include "C12Utils.h"
 
 int main(int argc, char **argv) {
   
@@ -21,7 +22,7 @@ int main(int argc, char **argv) {
     if(val.Contains("--"))
       printf("Warning command line argument seems to be missing between %s and %s \n",opt.Data(),val.Data());
     
-    // std::cout<<"opt "<<opt<<"\n";
+    //  std::cout<<"opt "<<opt<<"\n";
     if((opt.Contains("--docker"))) {
       i=i-1;
       continue;
@@ -29,9 +30,18 @@ int main(int argc, char **argv) {
     if((opt.Contains(".C"))) macroName=opt;
     if((opt.Contains("--trig"))) config._nEvents=val.Atoi();
     if((opt.Contains("--seed"))) config._seed=val.Atoi();
-    if((opt.Contains("--ebeam"))) config._eBeam=val.Atof();
+    if((opt.Contains("--ebeam"))) config._beamP=val.Atof();
     if((opt.Contains("--out"))) config._outFile=val;
     if((opt.Contains("--misc"))) config._misc=val;
+    if((opt.Contains("--ft"))) {
+      config.setFT();
+      i=i-1;
+      continue;
+    }
+    if((opt.Contains("--min_e_th"))) config.setMin_elAngle(val.Atof());
+    if((opt.Contains("--tarPos"))) config._tarPos=val.Atof();
+    if((opt.Contains("--tarLength"))) config._tarLength=val.Atof();
+    
   }
    
    gRandom->SetSeed(config._seed);
@@ -43,6 +53,18 @@ int main(int argc, char **argv) {
    TString configPath=Form("%s/src/C12Config.h",gSystem->Getenv("C12ELSPECTRO"));
    if(configPath.Contains("//")) configPath.ReplaceAll("//","/");//tidy string
    app->ProcessLine(Form(".L %s",configPath.Data()));
+
+   TString utilsPath=Form("%s/src/C12Utils.h",gSystem->Getenv("C12ELSPECTRO"));
+   if(utilsPath.Contains("//")) utilsPath.ReplaceAll("//","/");//tidy string
+   app->ProcessLine(Form(".L %s",utilsPath.Data()));
+
+   //check if macro exists in scripts
+   TString fname("$C12ELSPECTRO/scripts/");
+   fname+=macroName;
+   if(gSystem->FindFile("",fname)==nullptr){//script does not exist
+     gSystem->Exec(Form("wget https://raw.githubusercontent.com/dglazier/clas12-elSpectro/main/scripts/%s",macroName.Data()));
+     gSystem->Exec(Form("mv %s $C12ELSPECTRO/scripts/.",macroName.Data()));
+   }
    //e.g. C12Config config(1,2132,"clas12-elspectro.dat",10.600000);
    app->ProcessLine(config.GetContructorString());
     //run macro
