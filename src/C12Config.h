@@ -70,7 +70,7 @@ class C12Config : public TObject {
   Double_t _max_limit_e_th=TMath::Pi();
   Double_t _min_limit_e_p=0;
 
-
+  //target cell position
   Double_t _tarPos=-3.;
   Double_t _tarLength=5.;
 

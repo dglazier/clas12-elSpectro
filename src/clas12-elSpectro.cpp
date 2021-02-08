@@ -62,6 +62,9 @@ int main(int argc, char **argv) {
    TString fname("$C12ELSPECTRO/scripts/");
    fname+=macroName;
    if(gSystem->FindFile("",fname)==nullptr){//script does not exist
+     //////////////////////////////////////
+     ///Here we allow the possibility the script exists
+     ///on github but has not been released yet....
      gSystem->Exec(Form("wget https://raw.githubusercontent.com/dglazier/clas12-elSpectro/main/scripts/%s",macroName.Data()));
      gSystem->Exec(Form("mv %s $C12ELSPECTRO/scripts/.",macroName.Data()));
    }

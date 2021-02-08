@@ -18,11 +18,11 @@ void MesonEx_p2pi_Flat_s_give_t_M2pi(C12Config config) {
   mass_distribution(9995,new DistTF1{TF1("hh",massDist,0.,(elbeam+prtarget).M())});
   
   //produced meson decaying to pi+ pi- with mass distribution 9995
-  auto X=static_cast<DecayingParticle*>(particle(9995,model(new PhaseSpaceDecay{{},{211,-211}})) );
+  auto X=particle(9995,model(new PhaseSpaceDecay{{},{211,-211}}));
   
   //decay of gamma* + p  to p + X
   //depends on s and t
-  auto pGammaStarDecay = static_cast<DecayModelst*>(model(new DecayModelst{ {X},{2212} }));
+  auto pGammaStarDecay = model(new DecayModelst{ {X},{2212} });
   
   // 
   //create mesonex electroproduction of X + proton
