@@ -29,5 +29,5 @@ endforeach( exefile ${EXE_FILES} )
 
 ##need to install jpacphoto ourseves as we don't have control
 ##over its CMakeFiles
-install (FILES    elSpectro/jpacPhoto/lib/libjpacPhoto.so 
-  DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+install(TARGETS jpacPhoto
+  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
