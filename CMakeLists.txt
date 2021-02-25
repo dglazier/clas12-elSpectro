@@ -26,3 +26,8 @@ foreach( exefile ${EXE_FILES} )
   target_link_libraries( ${exename} jpacPhoto)
   target_link_libraries( ${exename} ${ROOT_LIBRARIES} -lRooFit -lMathMore -lEG -lGenVector)
 endforeach( exefile ${EXE_FILES} )
+
+##need to install jpacphoto ourseves as we don't have control
+##over its CMakeFiles
+install (FILES    elSpectro/jpacPhoto/lib/libjpacPhoto.so 
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}")
