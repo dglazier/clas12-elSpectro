@@ -4,7 +4,7 @@ project(clas12-elSpectro)
 #set(CMAKE_INSTALL_BINDIR ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_INSTALL_BINDIR})
 
-find_package(ROOT REQUIRED MathMore RooFit GenVector EG Minuit2)
+find_package(ROOT REQUIRED MathMore RooFit GenVector EG)
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS}) 
 #---Define useful ROOT functions and macros (e.g. ROOT_GENERATE_DICTIONARY)
 include(${ROOT_USE_FILE})
@@ -29,5 +29,5 @@ endforeach( exefile ${EXE_FILES} )
 
 ##need to install jpacphoto ourseves as we don't have control
 ##over its CMakeFiles
-install(TARGETS jpacPhoto
-  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+#install(TARGETS jpacPhoto
+#  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
