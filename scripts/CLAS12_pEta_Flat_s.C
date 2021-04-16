@@ -1,5 +1,5 @@
 
-void CLAS12_pEtaPrime_RhoGamma_Flat_s(C12Config config) {
+void CLAS12_pEta_Flat_s(C12Config config) {
 
   config.Print();
 
@@ -10,11 +10,8 @@ void CLAS12_pEtaPrime_RhoGamma_Flat_s(C12Config config) {
 
    
   //produced rho decaying to pi+ pi-
-  auto rho=particle(331,model(new PhaseSpaceDecay{{},{111,211,-211}}));
-  
-  //produced eta' decaying to rho gamma(22)
-  auto eta=particle(331,model(new PhaseSpaceDecay{{rho},{22}}));
-  
+  auto eta=particle(221,model(new PhaseSpaceDecay{{},{111,211,-211}}));
+    
   //decay of gamma* + p  to p + eta
   auto pGammaStarDecay = model(new DecayModelst{ {eta},{2212} });
   

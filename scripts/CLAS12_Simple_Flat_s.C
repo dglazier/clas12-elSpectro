@@ -48,7 +48,8 @@ void CLAS12_Simple_Flat_s(C12Config config) {
 	pdg_meson =  mstring.Atoi();
 	continue;
       }
-   
+      pdg_meson = TString(mstring(0,mstring.First(':'))).Atoi();
+  
       TString decaystring(mstring(mstring.First(':')+1,mstring.Length()));
       auto decaytokens=decaystring.Tokenize(",");
       for(auto dec:*decaytokens){
@@ -60,7 +61,8 @@ void CLAS12_Simple_Flat_s(C12Config config) {
       }
      }
   }
-  
+  for(auto& m:decay_meson)
+    cout<<"meson "<<pdg_meson<<" "<<m<<endl;
     
   Particle* meson=nullptr;
   if(decay_meson.empty()==true)
@@ -81,7 +83,7 @@ void CLAS12_Simple_Flat_s(C12Config config) {
 
   mesonex( ebeamP ,  new DecayModelQ2W{0, pGammaStarDecay });
 
-
+  
   c12process(config);
   
 }
