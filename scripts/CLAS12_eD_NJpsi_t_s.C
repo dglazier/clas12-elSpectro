@@ -1,3 +1,10 @@
+//to run
+// clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$nucleon=2212  $tslope=4 $flat=1 $muons' CLAS12_eD_NJpsi_t_s.C
+//--trig => nevents
+//$nucleon => select quasifree proton or neutron target (neutron by default)
+//$muons => decay to muons not electrons (if ommitted will decay to electrons)
+//$tslope => give t distribution slope
+//$flat => give relative amount of flat production angle compared to t distribution
 
 void CLAS12_eD_NJpsi_t_s(C12Config config) {
 
