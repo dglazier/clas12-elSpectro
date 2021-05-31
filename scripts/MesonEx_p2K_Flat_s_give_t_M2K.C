@@ -1,10 +1,10 @@
-//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$tslope=4 $flat=1' MesonEx_p2pi_Flat_s_give_t_M2pi.C
+//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$tslope=4 $flat=1' MesonEx_p2K_Flat_s_give_t_M2K.C
 //$tslope => give t distribution slope
 //$flat => give relative amount of flat production angle compared to t distribution
-//$M2pi=0.9*TMath::BreitWigner(x,0.78,0.149) => alternative M2pi disribution
+//$M2K=0.9*TMath::BreitWigner(x,0.78,0.149) => alternative M2pi disribution
 
 
-void MesonEx_p2pi_Flat_s_give_t_M2pi(C12Config config) {
+void MesonEx_p2K_Flat_s_give_t_M2K(C12Config config) {
 
   config.Print();
 
@@ -17,7 +17,7 @@ void MesonEx_p2pi_Flat_s_give_t_M2pi(C12Config config) {
   auto prTarget= initial(2212,0);
   auto prin=prTarget->GetInteracting4Vector();
 
-  TString massDist = "0.9*TMath::BreitWigner(x,0.78,0.149) + 0.1*TMath::BreitWigner(x,1.27,0.187)+0.1";
+  TString massDist = "0.9*TMath::BreitWigner(x,1.019461,4.266) + 0.1";
 
   Float_t tslope=5.; //tslope
   Float_t flat = 0.; //relative amount of flat CM production angle
@@ -26,9 +26,9 @@ void MesonEx_p2pi_Flat_s_give_t_M2pi(C12Config config) {
   auto tokens=config._misc.Tokenize("$");
   for(auto entry:*tokens) {
     TString sentry= entry->GetName();///get actual string
-     if(sentry.Contains("M2pi=")){ //look to see if misc overrides mass distribition
+     if(sentry.Contains("M2K=")){ //look to see if misc overrides mass distribition
       massDist = sentry;
-      massDist.ReplaceAll("M2pi=","");
+      massDist.ReplaceAll("M2K=","");
     }
     if(sentry.Contains("tslope=")){ //slope
       TString tstring= sentry;
@@ -46,8 +46,8 @@ void MesonEx_p2pi_Flat_s_give_t_M2pi(C12Config config) {
   cout<<"Mass distribution is "<<massDist<<endl;
   mass_distribution(9995,new DistTF1{TF1("hh",massDist,0.,(*elin+*prin).M())});
   
-  //produced meson decaying to pi+ pi- with mass distribution 9995
-  auto X=particle(9995,model(new PhaseSpaceDecay{{},{211,-211}}));
+  //produced meson decaying to K+ K- with mass distribution 9995
+  auto X=particle(9995,model(new PhaseSpaceDecay{{},{321,-321}}));
   
   //decay of gamma* + p  to p + X
   //depends on s and t

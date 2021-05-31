@@ -47,6 +47,8 @@ int main(int argc, char **argv) {
    gRandom->SetSeed(config._seed);
  
    auto  app =  std::unique_ptr<TRint>{new TRint("elSpectro", &argc, argv)};
+ 
+   
    app->ProcessLine(Form(".x %s/core/src/Load.C",gSystem->Getenv("ELSPECTRO")));
    app->ProcessLine("gROOT->SetMacroPath(\"$C12ELSPECTRO/scripts/\")");
    //Load C12Config class

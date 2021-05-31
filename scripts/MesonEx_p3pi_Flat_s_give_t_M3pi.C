@@ -5,7 +5,7 @@
 //$M2pi=TMath::BreitWigner(x,0.78,0.149) => alternative M2pi disribution
 //$M3pi=TMath::BreitWigner(x,1.5,0.3) => alternative M3pi disribution
 
-void MesonEx_n3pi_Flat_s_give_t_M3pi(C12Config config) {
+void MesonEx_p3pi_Flat_s_give_t_M3pi(C12Config config) {
 
   config.Print();
 
@@ -49,15 +49,15 @@ void MesonEx_n3pi_Flat_s_give_t_M3pi(C12Config config) {
   }
   
   //add a Breit-Wigner resonance for particle id 9995
-  mass_distribution(9996,new DistTF1{TF1("hh",massDistY,0.,(*elin+*prin).M())});
+  //mass_distribution(9996,new DistTF1{TF1("hh",massDistY,0.,(*elin+*prin).M())});
 
-  auto Y=static_cast<DecayingParticle*>(particle(9996,model(new PhaseSpaceDecay{{},{211,-211}})) );
+  //auto Y=static_cast<DecayingParticle*>(particle(9996,model(new PhaseSpaceDecay{{},{211,-211}})) );
 
   cout<<"Mass distribution is "<<massDistX<<endl;
   mass_distribution(9995,new DistTF1{TF1("hh",massDistX,0.,(*elin+*prin).M())});
   
   //produced meson decaying to pi+ pi+ pi- with mass distribution 9995
-  auto X=static_cast<DecayingParticle*>(particle(9995,model(new PhaseSpaceDecay{{Y},{211}})) );
+  auto X=static_cast<DecayingParticle*>(particle(9995,model(new PhaseSpaceDecay{{},{211,111,-211}})) );
   
   
   //decay of gamma* + p  to p + X

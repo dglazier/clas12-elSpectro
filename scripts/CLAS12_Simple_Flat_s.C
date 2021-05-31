@@ -9,8 +9,12 @@ void CLAS12_Simple_Flat_s(C12Config config) {
 
   auto ebeamP=config._beamP;
 
-  LorentzVector elbeam(0,0,ebeamP,escat::E_el(ebeamP));
-  LorentzVector prtarget(0,0,0,escat::M_pr());
+  //define e- beam, pdg =11 momentum = _beamP
+  auto elBeam = initial(11,ebeamP);
+  auto elin=elBeam->GetInteracting4Vector();
+  //proton target at rest
+  auto prTarget= initial(2212,0);
+  auto prin=prTarget->GetInteracting4Vector();
   
   auto tokens=config._misc.Tokenize("$");
 
@@ -81,7 +85,7 @@ void CLAS12_Simple_Flat_s(C12Config config) {
   auto pGammaStarDecay = model(new DecayModelst{ {baryon,meson},{} });
   
 
-  mesonex( ebeamP ,  new DecayModelQ2W{0, pGammaStarDecay });
+  mesonex( elBeam, prTarget ,  new DecayModelQ2W{0, pGammaStarDecay });
 
   
   c12process(config);
