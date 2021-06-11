@@ -8,6 +8,13 @@
 #include "C12Config.h"
 #include "C12Utils.h"
 
+
+/////////////////////////////////////
+////////////////////////////////////
+////Remember cout does not work in
+//// interactive ROOT here and will
+//// cause a seg fault. No idea why
+
 int main(int argc, char **argv) {
   
   C12Config config; //collect command line arguments
@@ -39,6 +46,8 @@ int main(int argc, char **argv) {
       continue;
     }
     if((opt.Contains("--min_e_th"))) config.setMin_elAngle(val.Atof());
+    if((opt.Contains("--min_part_th"))) config.setMin_partAngle(val.Atof());
+    if((opt.Contains("--restrict_theta"))) config._misc=val;
     if((opt.Contains("--tarPos"))) config._tarPos=val.Atof();
     if((opt.Contains("--tarLength"))) config._tarLength=val.Atof();
     
@@ -72,7 +81,7 @@ int main(int argc, char **argv) {
    }
    //e.g. C12Config config(1,2132,"clas12-elspectro.dat",10.600000);
    app->ProcessLine(config.GetContructorString());
-    //run macro
+   //run macro
    app->ProcessLine(Form(".x %s(config)",macroName.Data()));
    
    

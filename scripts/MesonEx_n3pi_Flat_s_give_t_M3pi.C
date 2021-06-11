@@ -72,6 +72,6 @@ void MesonEx_n3pi_Flat_s_give_t_M3pi(C12Config config) {
   mesonex( elBeam,prTarget ,  new DecayModelQ2W{0, pGammaStarDecay,new TwoBody_stu{flat, 1, tslope , 0 , 0} });
 
 
-  c12process(config);
+  c12process_all(config);
   
 }
