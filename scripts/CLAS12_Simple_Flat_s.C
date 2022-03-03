@@ -1,7 +1,7 @@
 // e.g. final state proton eta(pi0,pi+,pi-)
-//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$baryon=2212: $meson=221:111,211,-211' CLAS12_Simple_Flat_s.C
+//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '--baryon=2212: --meson=221:111,211,-211' CLAS12_Simple_Flat_s.C
 //e.g. final state Lambda0(p,pi-) K+
-//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$baryon=3122:2212,-211 $meson=321' CLAS12_Simple_Flat_s.C
+//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '--baryon=3122:2212,-211 --meson=321' CLAS12_Simple_Flat_s.C
 
 void CLAS12_Simple_Flat_s(C12Config config) {
 
@@ -41,8 +41,8 @@ void CLAS12_Simple_Flat_s(C12Config config) {
 	auto dec_pdg=TString(dec->GetName()).Atoi();
 	if(TDatabasePDG::Instance()->GetParticle(dec_pdg)&&dec_pdg!=0)
 	  decay_baryon.push_back(dec_pdg);
-	else
-	  Warning("CLAS12_General_Flat_s",Form("invalid PDG code for baryon decay product %d",dec_pdg),"");
+	else if(dec_pdg!=0)
+	  Fatal("CLAS12_General_Flat_s",Form("invalid PDG code for baryon decay product %d",dec_pdg),"");
       }
     }
     if(sentry.Contains("meson=")){//meson should be pdg:decay1,decay2,decay3,...
@@ -60,14 +60,26 @@ void CLAS12_Simple_Flat_s(C12Config config) {
 	auto dec_pdg=TString(dec->GetName()).Atoi();
 	if(TDatabasePDG::Instance()->GetParticle(dec_pdg)&&dec_pdg!=0)
 	  decay_meson.push_back(dec_pdg);
-	else
-	  Warning("CLAS12_General_Flat_s",Form("invalid PDG code for meson decay product %d",dec_pdg),"");
+	else if(dec_pdg!=0)
+	  Fatal("CLAS12_General_Flat_s",Form("invalid PDG code for meson decay product %d",dec_pdg),"");
       }
      }
   }
-  for(auto& m:decay_meson)
-    cout<<"meson "<<pdg_meson<<" "<<m<<endl;
-    
+  Double_t decaymass=0.;
+  for(auto& m:decay_meson){
+    decaymass+=TDatabasePDG::Instance()->GetParticle(m)->Mass();
+  }
+  if(decaymass>TDatabasePDG::Instance()->GetParticle(pdg_meson)->Mass()){
+    Fatal("CLAS12_Simple_Flat_s","Decay meson mass greater than parent");
+  }
+  decaymass=0.;
+  for(auto& b:decay_baryon){
+    decaymass+=TDatabasePDG::Instance()->GetParticle(b)->Mass();
+  }
+  if(decaymass>TDatabasePDG::Instance()->GetParticle(pdg_baryon)->Mass()){
+    Fatal("CLAS12_Simple_Flat_s","Decay baryon mass greater than parent");
+  }
+  
   Particle* meson=nullptr;
   if(decay_meson.empty()==true)
     meson=particle(pdg_meson);

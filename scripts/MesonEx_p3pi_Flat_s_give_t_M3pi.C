@@ -1,9 +1,8 @@
-//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$tslope=4 $flat=1' MesonEx_n3pi_Flat_s_give_t_M3pi.C
-
-//$tslope => give t distribution slope
-//$flat => give relative amount of flat production angle compared to t distribution
-//$M2pi=TMath::BreitWigner(x,0.78,0.149) => alternative M2pi disribution
-//$M3pi=TMath::BreitWigner(x,1.5,0.3) => alternative M3pi disribution
+//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '--tslope=4 --flat=1' MesonEx_n3pi_Flat_s_give_t_M3pi.C
+//,tslope => give t distribution slope
+//,flat => give relative amount of flat production angle compared to t distribution
+//,M2pi=TMath::BreitWigner(x,0.78,0.149) => alternative M2pi disribution
+//,M3pi=TMath::BreitWigner(x,1.5,0.3) => alternative M3pi disribution
 
 void MesonEx_p3pi_Flat_s_give_t_M3pi(C12Config config) {
 
@@ -24,7 +23,7 @@ void MesonEx_p3pi_Flat_s_give_t_M3pi(C12Config config) {
   Float_t tslope=4.; //tslope
   Float_t flat = 0.; //relative amount of flat CM production angle
   //Do some misc string decoding
-  //example string $M2pi=0.9*TMath::BreitWigner(x,0.78,0.149) $tslope=4 $flat=1
+  //example string M2pi=0.9*TMath::BreitWigner(x,0.78,0.149) ,tslope=4 ,flat=1
   auto tokens=config._misc.Tokenize("$");
   for(auto entry:*tokens) {
     TString sentry= entry->GetName();///get actual string

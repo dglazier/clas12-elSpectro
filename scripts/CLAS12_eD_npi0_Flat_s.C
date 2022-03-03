@@ -1,3 +1,4 @@
+//clas12-elSpectro  --ebeam 10.6 --seed 2132 --trig 10 CLAS12_eD_npi0_Flat_s.C
 
 void CLAS12_eD_npi0_Flat_s(C12Config config) {
 

@@ -1,4 +1,4 @@
-//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$tslope=4 $flat=1' VeryStrange_KKXi_Flat_s_give_t_MXi.C
+//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '--tslope=4 --flat=1' VeryStrange_KKXi_Flat_s_give_t_MXi.C
 
 void VeryStrange_KKXi_Flat_s_give_t_MXi(C12Config config) {
 
@@ -42,7 +42,7 @@ void VeryStrange_KKXi_Flat_s_give_t_MXi(C12Config config) {
   }
   
   
-  //produced 2K system decaying to 2K+ pi- with phase space mass distribution
+  //produced 2K system decaying to 2K+  with phase space mass distribution
   mass_distribution(9995,new DistTF1{TF1("hh","1",1.,(*elin+*prin).M())});
   auto X=particle(9995,model(new PhaseSpaceDecay{{},{321,321}}));
  

@@ -26,8 +26,8 @@ int main(int argc, char **argv) {
     TString opt=argv[i];
    
     TString val=argv[i+1];
-    if(val.Contains("--"))
-      printf("Warning command line argument seems to be missing between %s and %s \n",opt.Data(),val.Data());
+    // if(val.Contains("--"))
+    //   printf("Warning command line argument seems to be missing between %s and %s \n",opt.Data(),val.Data());
     
     //  std::cout<<"opt "<<opt<<"\n";
     if((opt.Contains("--docker"))) {
@@ -39,7 +39,11 @@ int main(int argc, char **argv) {
     if((opt.Contains("--seed"))) config._seed=val.Atoi();
     if((opt.Contains("--ebeam"))) config._beamP=val.Atof();
     if((opt.Contains("--out"))) config._outFile=val;
-    if((opt.Contains("--misc"))) config._misc=val;
+    if((opt.Contains("--misc"))){
+      config._misc=val;
+      //replace command line friendly -- with $ for tokenizing...
+      config._misc.ReplaceAll("--","$");
+    }
     if((opt.Contains("--ft"))) {
       config.setFT();
       i=i-1;

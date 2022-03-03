@@ -1,4 +1,4 @@
-
+//clas12-elSpectro --ft --ebeam 10.6 --seed 2132 --trig 10 CLAS12_pEtaPrime_RhoGamma_Flat_s.C
 void CLAS12_pEtaPrime_RhoGamma_Flat_s(C12Config config) {
 
   config.Print();
@@ -12,7 +12,8 @@ void CLAS12_pEtaPrime_RhoGamma_Flat_s(C12Config config) {
   auto prTarget= initial(2212,0);
   auto prin=prTarget->GetInteracting4Vector();
 
-   
+
+  
   //produced rho decaying to pi+ pi-
   mass_distribution(113,new DistTF1{TF1("hh","TMath::BreitWigner(x,0.775,0.149)",0.27,3)});
   auto rho=particle(113,model(new PhaseSpaceDecay{{},{211,-211}}));

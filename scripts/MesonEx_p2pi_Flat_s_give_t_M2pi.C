@@ -1,7 +1,7 @@
-//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$tslope=4 $flat=1' MesonEx_p2pi_Flat_s_give_t_M2pi.C
-//$tslope => give t distribution slope
-//$flat => give relative amount of flat production angle compared to t distribution
-//$M2pi=0.9*TMath::BreitWigner(x,0.78,0.149) => alternative M2pi disribution
+//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '--tslope=4 --flat=1' MesonEx_p2pi_Flat_s_give_t_M2pi.C
+//--tslope => give t distribution slope
+//--flat => give relative amount of flat production angle compared to t distribution
+//--M2pi=0.9*TMath::BreitWigner(x,0.78,0.149) => alternative M2pi disribution
 
 
 void MesonEx_p2pi_Flat_s_give_t_M2pi(C12Config config) {

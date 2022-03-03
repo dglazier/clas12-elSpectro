@@ -1,7 +1,7 @@
-//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$tslope=4 $flat=1' MesonEx_DeltaEtaPi_Flat_s_give_t_MEtaPi.C
-//$tslope => give t distribution slope
-//$flat => give relative amount of flat production angle compared to t distribution
-//$MEtaPi=0.9*TMath::BreitWigner(x,0.78,0.149) => alternative MEtaPi disribution
+//clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '--tslope=4 --flat=1' MesonEx_DeltaEtaPi_Flat_s_give_t_MEtaPi.C
+//--tslope => give t distribution slope
+//--flat => give relative amount of flat production angle compared to t distribution
+//--MEtaPi=0.9*TMath::BreitWigner(x,0.78,0.149) => alternative MEtaPi disribution
 
 
 void MesonEx_DeltaEtaPi_Flat_s_give_t_MEtaPi(C12Config config) {

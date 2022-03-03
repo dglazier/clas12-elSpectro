@@ -1,21 +1,21 @@
 //to run
-// clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$nucleon=2212  $tslope=4 $flat=1 $muons' CLAS12_eD_NJpsi_t_s.C
+// clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '--nucleon=2212 --tslope=4 --flat=1 --muons' CLAS12_eD_NJpsi_t_s.C
 //--trig => nevents
-//$nucleon => select quasifree proton or neutron target (neutron by default)
-//$muons => decay to muons not electrons (if ommitted will decay to electrons)
-//$tslope => give t distribution slope
-//$flat => give relative amount of flat production angle compared to t distribution
+//--nucleon => select quasifree proton or neutron target (neutron by default)
+//--muons => decay to muons not electrons (if ommitted will decay to electrons)
+//--tslope => give t distribution slope
+//--flat => give relative amount of flat production angle compared to t distribution
 
 void CLAS12_eD_NJpsi_t_s(C12Config config) {
 
   config.Print();
   Float_t tslope=5.; //tslope
   Float_t flat = 0.; //relative amount of flat CM production angle
-  Int_t nucleonPDG = 2112.; //default production on neutron
+  Int_t nucleonPDG = 2112; //default production on neutron
   Bool_t decayToMuons=kFALSE;
   
   //Do some misc string decoding
-  //example string $nucleon=2212 $tslope=4 $flat=1 $muons
+  //example string ,nucleon=2212 ,tslope=4 ,flat=1 ,muons
   auto tokens=config._misc.Tokenize("$");
   for(auto entry:*tokens) {
     TString sentry= entry->GetName();///get actual string

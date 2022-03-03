@@ -1,17 +1,17 @@
 //to run
-// clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '$nucleon=2212  $tslope=4 $flat=1 $muons' CLAS12_ep_pJpsi_t_s.C
+// clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 10 --misc '--nucleon=2212  --tslope=4 --flat=1 --muons' CLAS12_ep_pJpsi_t_s.C
 //--trig => nevents
-//$jpac => model selection, none by default, 0=> pomeron exchange , 1=> + 1P*, 2=> +2 P*
-//$muons => decay to muons not electrons (if ommitted will decay to electrons)
-//$tslope => give t distribution slope
-//$flat => give relative amount of flat production angle compared to t distribution
+//--jpac => model selection, none by default, 0=> pomeron exchange , 1=> + 1P*, 2=> +2 P*, 3=>2019 3 Pentaquarks
+//--muons => decay to muons not electrons (if ommitted will decay to electrons)
+//--tslope => give t distribution slope
+//--flat => give relative amount of flat production angle compared to t distribution
 #include "amplitudes/vector_exchange.hpp"
 #include "amplitudes/pseudoscalar_exchange.hpp"
 #include "amplitudes/pomeron_exchange.hpp"
 #include "amplitudes/amplitude_sum.hpp"
 #include "amplitudes/baryon_resonance.hpp"
 jpacPhoto::amplitude_sum* Amplitude(Int_t mode);
-
+ 
 void CLAS12_ep_pJpsi_t_s(C12Config config) {
 
   config.Print();
@@ -73,8 +73,8 @@ void CLAS12_ep_pJpsi_t_s(C12Config config) {
 
     jpac_amp = Amplitude(jpacModel);
     auto pGammaStarDecay = new JpacModelst{jpac_amp, {jpsi},{2212} };
-    flat=0.5;
-    tslope=4;
+    flat=10;
+    tslope=1;
     mesonex( elBeam,prTarget ,
 	     new DecayModelQ2W{0, pGammaStarDecay,new TwoBody_stu{flat,1,tslope,0,0}});
     
@@ -124,7 +124,17 @@ jpacPhoto::amplitude_sum* Amplitude(Int_t mode){
     return new amplitude_sum(ptr, {background}, "5q Sum");
   else if(mode==1)
     return new amplitude_sum(ptr, {background, P_c4450}, "5q Sum");
-  else {
+  else if(mode==3){
+    auto P_c4312 =new baryon_resonance(ptr, 1, -1, 4.312, 0.0098, "P_{c}(4312)");
+    P_c4312->set_params({0.01, .7071}); // 2% branching fraction and equal photocouplings
+    auto P_c4440 =new baryon_resonance(ptr, 3, -1, 4.440, 0.021, "P_{c}(4440)");
+    P_c4440->set_params({0.01, .7071}); // 2% branching fraction and equal photocouplings
+    auto P_c4457 =new baryon_resonance(ptr, 5, -1, 4.457, 0.0064, "P_{c}(4457)");
+    P_c4457->set_params({0.01, .7071}); // 2% branching fraction and equal photocouplings
+
+    return new amplitude_sum(ptr, {background, P_c4312, P_c4440, P_c4457}, "5q Sum");
+  }
+   else {
     return new amplitude_sum(ptr, {background, P_c4450, P_c4380}, "10q Sum");
   }
   
