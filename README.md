@@ -121,6 +121,6 @@ Then run the generator
 To run this example locally I would then do,
 
    
-     clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 100 --ft --misc '$M2pi=0.9*TMath::BreitWigner(x,0.78,0.149) $tslope=4 $flat=1' MesonEx_p2pi_Flat_s_give_t_M2pi.C
+     clas12-elSpectro --ebeam 10.6 --seed 2132 --trig 100 --ft --misc '--M2pi=0.9*TMath::BreitWigner(x,0.78,0.149) --tslope=4 --flat=1' MesonEx_p2pi_Flat_s_give_t_M2pi.C
 
 Note the misc string reading is a bit more complicated in practise but is shown in the actual script MesonEx_p2pi_Flat_s_give_t_M2pi.C
