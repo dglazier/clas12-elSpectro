@@ -2,7 +2,7 @@
 
 //--tslope => give t distribution slope
 //--flat => give relative amount of flat production angle compared to t distribution
-//--MKmPi=TMath::BreitWigner(x,0.78,0.149) => alternative MKmPi disribution
+//--MKmPi=TMath::BreitWigner(x,0.896,0.047) => alternative MKmPi disribution
 //--MKPiK=TMath::BreitWigner(x,1.5,0.3) => alternative MKPiK disribution
 
 void MesonEx_nKPiK_Flat_s_give_t_MKPiK(C12Config config) {

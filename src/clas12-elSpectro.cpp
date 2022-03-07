@@ -4,6 +4,7 @@
 #include <TString.h>
 #include <TSystem.h>
 #include <TRandom.h>
+#include <TROOT.h>
 
 #include "C12Config.h"
 #include "C12Utils.h"
@@ -62,8 +63,13 @@ int main(int argc, char **argv) {
    auto  app =  std::unique_ptr<TRint>{new TRint("elSpectro", &argc, argv)};
  
    
-   app->ProcessLine(Form(".x %s/core/src/Load.C",gSystem->Getenv("ELSPECTRO")));
+   TString JPAC = gSystem->Getenv("JPACPHOTO");  
+   TString ELSPECTRO = gSystem->Getenv("ELSPECTRO");
+   
+   // app->ProcessLine(Form(".x %s/core/src/Load.C",gSystem->Getenv("ELSPECTRO")));
    app->ProcessLine("gROOT->SetMacroPath(\"$C12ELSPECTRO/scripts/\")");
+   app->ProcessLine(Form(".x %s/scripts/C12Init.C",gSystem->Getenv("C12ELSPECTRO")));
+
    //Load C12Config class
    TString configPath=Form("%s/src/C12Config.h",gSystem->Getenv("C12ELSPECTRO"));
    if(configPath.Contains("//")) configPath.ReplaceAll("//","/");//tidy string
@@ -73,7 +79,9 @@ int main(int argc, char **argv) {
    if(utilsPath.Contains("//")) utilsPath.ReplaceAll("//","/");//tidy string
    app->ProcessLine(Form(".L %s",utilsPath.Data()));
 
-   //check if macro exists in scripts
+   //libs loaded can continue
+  gROOT->ProcessLine("elSpectro::Manager::Instance();");
+  //check if macro exists in scripts
    TString fname("$C12ELSPECTRO/scripts/");
    fname+=macroName;
    if(gSystem->FindFile("",fname)==nullptr){//script does not exist

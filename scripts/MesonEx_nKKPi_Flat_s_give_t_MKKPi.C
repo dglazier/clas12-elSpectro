@@ -2,7 +2,7 @@
 
 //--tslope => give t distribution slope
 //--flat => give relative amount of flat production angle compared to t distribution
-//--MKK=TMath::BreitWigner(x,0.78,0.149) => alternative MKK disribution
+//--MKK=TMath::BreitWigner(x,1.0194550,0.00443) => alternative MKK disribution
 //--MKKPi=TMath::BreitWigner(x,1.5,0.3) => alternative MKKPi disribution
 
 void MesonEx_nKKPi_Flat_s_give_t_MKKPi(C12Config config) {
@@ -18,14 +18,12 @@ void MesonEx_nKKPi_Flat_s_give_t_MKKPi(C12Config config) {
   auto prTarget= initial(2212,0);
   auto prin=prTarget->GetInteracting4Vector();
 
-  //TString massDistY = "0.8*TMath::BreitWigner(x,0.892,0.026) + 0.1*TMath::BreitWigner(x,1.3,0.2)+0.1";
   TString massDistY = "1";
   TString massDistX = "1";
 
   Float_t tslope=4.; //tslope
   Float_t flat = 0.; //relative amount of flat CM production angle
   //Do some misc string decoding
-  //example string $M2pi=0.9*TMath::BreitWigner(x,0.78,0.149) $tslope=4 $flat=1
   auto tokens=config._misc.Tokenize("$");
   for(auto entry:*tokens) {
     TString sentry= entry->GetName();///get actual string
