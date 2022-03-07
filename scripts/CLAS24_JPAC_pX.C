@@ -5,13 +5,14 @@
 //--muons => decay to muons not electrons (if ommitted will decay to electrons)
 //--tslope => give t distribution slope
 //--flat => give relative amount of flat production angle compared to t distribution
+#include "amplitude_blend.hpp"
 #include "reaction_kinematics.hpp"
 #include "regge_trajectory.hpp"
 #include "amplitudes/vector_exchange.hpp"
 #include "amplitudes/pseudoscalar_exchange.hpp"
 #include "amplitudes/pomeron_exchange.hpp"
 #include "amplitudes/amplitude_sum.hpp"
-amplitude_blend* Amplitude(Int_t mode);
+jpacPhoto::amplitude_blend* Amplitude(Int_t mode);
 
 void CLAS24_JPAC_pX(C12Config config) {
 
@@ -95,7 +96,7 @@ void CLAS24_JPAC_pX(C12Config config) {
 
   if(jpac_amp!=nullptr)delete jpac_amp;
 }
-amplitude_blend* Amplitude(Int_t mode){
+jpacPhoto::amplitude_blend* Amplitude(Int_t mode){
   using namespace jpacPhoto;
   // ---------------------------------------------------------------------------
   // AMPLITUDES
