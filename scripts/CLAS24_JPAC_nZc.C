@@ -82,7 +82,7 @@ void CLAS24_JPAC_nZc(C12Config config) {
     jpac_amp = Amplitude(jpacModel);
     auto pGammaStarDecay = new JpacModelst{jpac_amp, {Z},{2112} };
     flat=0;
-    tslope=2.5;
+    tslope=1.5;
     mesonex( elBeam,prTarget ,
 	     new DecayModelQ2W{0, pGammaStarDecay,new TwoBody_stu{flat,1,tslope,0,0}});
     

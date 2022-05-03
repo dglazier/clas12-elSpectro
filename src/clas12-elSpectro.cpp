@@ -51,6 +51,7 @@ int main(int argc, char **argv) {
       continue;
     }
     if((opt.Contains("--min_e_th"))) config.setMin_elAngle(val.Atof());
+    if((opt.Contains("--min_e_p"))) config.setMin_elAngle(val.Atof());
     if((opt.Contains("--min_part_th"))) config.setMin_partAngle(val.Atof());
     if((opt.Contains("--restrict_theta"))) config._misc=val;
     if((opt.Contains("--tarPos"))) config._tarPos=val.Atof();

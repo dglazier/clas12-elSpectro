@@ -22,12 +22,21 @@ void VeryStrange_KKXi_Flat_s_give_t_MXi(C12Config config) {
   //example string $MXi=TMath::BreitWigner(x,1.322,0.001) $tslope=2 $flat=0.1
   auto tokens=config._misc.Tokenize("$");
  
+  Double_t fixMass=0.0;
+
   for(auto entry:*tokens) {
     TString sentry= entry->GetName();///get actual string
     cout<<sentry<<endl;
     if(sentry.Contains("MXi=")){ //look to see if misc overrides mass distribition
       massDist = sentry;
-      massDist.ReplaceAll("MXi=","");
+      if(massDist.Contains("MXi==")){
+	massDist.ReplaceAll("MXi==","");
+ 	
+	if(massDist.Atof()!=0)fixMass=massDist.Atof();
+      }
+      else{
+	massDist.ReplaceAll("MXi=","");
+      }
     }
     if(sentry.Contains("tslope=")){ //slope
       TString tstring= sentry;
@@ -43,15 +52,16 @@ void VeryStrange_KKXi_Flat_s_give_t_MXi(C12Config config) {
   
   
   //produced 2K system decaying to 2K+  with phase space mass distribution
-  mass_distribution(9995,new DistTF1{TF1("hh","1",1.,(*elin+*prin).M())});
+  mass_distribution(9995,new DistTF1{TF1("hh","1",0.98,(*elin+*prin).M())});
   auto X=particle(9995,model(new PhaseSpaceDecay{{},{321,321}}));
  
 
   //add a Breit-Wigner resonance for particle id 9996
-  mass_distribution(9996,new DistTF1{TF1("hh",massDist,1.2,(*elin+*prin).M())});
+  if(fixMass==0.0)mass_distribution(9996,new DistTF1{TF1("hh",massDist,1.2,(*elin+*prin).M())});
   //Xi- decay to Lambda + pi-
   auto Xi=particle(9996,model(new PhaseSpaceDecay{{},{3122,-211}}));
- 
+  if(fixMass!=0.0)Xi->SetPdgMass(fixMass);
+
   //decay of gamma* + p  to Xi + X
   //depends on s and t
   //auto pGammaStarDecay = model(new  PhaseSpaceDecay{{X,Xi},{} });

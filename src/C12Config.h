@@ -57,6 +57,9 @@ class C12Config : public TObject {
   void setMin_elAngle(Double_t mina){
     _min_limit_e_th=mina*TMath::DegToRad();
   }
+  void setMin_elP(Double_t minp){
+    _min_limit_e_p=minp;
+  }
   void setMin_partAngle(Double_t mina){
     _minParticleAngle=mina*TMath::DegToRad();
   }
