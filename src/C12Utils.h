@@ -12,13 +12,16 @@ namespace elSpectro{
   
   inline void c12init(const C12Config& config){
 
-    auto production =  dynamic_cast<ElectronScattering*>(generator().Reaction());
+    ProductionProcess*  production =  generator().Reaction();
+    auto elproduction =  dynamic_cast<ElectronScattering*>(production);
     //FT limits
-    production->SetLimitTarRest_eThmin(config._min_limit_e_th);
-    production->SetLimitTarRest_eThmax(config._max_limit_e_th);
-    production->SetLimitTarRest_ePmin(config._min_limit_e_p);
-    production->SetLimitTarRest_ePmax(config.getMaxelP());
-
+    if(elproduction!=nullptr){
+      elproduction->SetLimitTarRest_eThmin(config._min_limit_e_th);
+      elproduction->SetLimitTarRest_eThmax(config._max_limit_e_th);
+      elproduction->SetLimitTarRest_ePmin(config._min_limit_e_p);
+      elproduction->SetLimitTarRest_ePmax(config.getMaxelP());
+    }
+ 
     //target limits
     production->GiveZVertexDist
       ( new DistUniform(config._tarPos-config._tarLength/2,config._tarPos+config._tarLength/2) );
