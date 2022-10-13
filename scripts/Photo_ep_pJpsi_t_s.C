@@ -12,7 +12,7 @@
 #include "core/baryon_resonance.hpp"
 jpacPhoto::amplitude_sum* Amplitude(Int_t mode);
  
-void CLAS12_ep_pJpsi_t_s(C12Config config) {
+void Photo_ep_pJpsi_t_s(C12Config config) {
 
   config.Print();
   Float_t tslope=1.; //tslope
@@ -50,10 +50,12 @@ void CLAS12_ep_pJpsi_t_s(C12Config config) {
   }
   
   auto ebeamP=config._beamP;
+  auto bremPhoton = initial(22,0,11,
+			    model(new Bremsstrahlung()),
+			    new BremstrPhoton(ebeamP,0.01*ebeamP,ebeamP*0.9999));
+  //get 4-momentum of brems. photon
+  auto photonP4=bremPhoton->GetInteracting4Vector();
 
-  //define e- beam, pdg =11 momentum = _beamP
-  auto elBeam = initial(11,ebeamP);
-  auto elin=elBeam->GetInteracting4Vector();
 
   //proton target at rest
   auto prTarget= initial(2212,0);
@@ -75,18 +77,18 @@ void CLAS12_ep_pJpsi_t_s(C12Config config) {
     //decay of gamma* + N  to N' + Jpsi
     //depends on s and t
     auto pGammaStarDecay = static_cast<DecayModelst*>(model(new DecayModelst{ {jpsi},{2212} }));
-    mesonex( elBeam,prTarget ,
-	     new DecayModelQ2W{0, pGammaStarDecay,new TwoBody_stu{flat,0.1,tslope,0,0}});
+    photoprod( bremPhoton,prTarget ,
+	     new DecayModelW{0, pGammaStarDecay,new TwoBody_stu{flat,0.1,tslope,0,0}});
 
   }
   else{
 
     jpac_amp = Amplitude(jpacModel);
     auto pGammaStarDecay = new JpacModelst{jpac_amp, {jpsi},{2212} };
-    flat=10;
-    tslope=1;
-    mesonex( elBeam,prTarget ,
-	     new DecayModelQ2W{0, pGammaStarDecay,new TwoBody_stu{flat,0.1,tslope,0,0}});
+    flat=1;
+    tslope=0.1;
+    photoprod( bremPhoton,prTarget ,
+	       new DecayModelW{0, pGammaStarDecay,new TwoBody_stu{flat,0.1,tslope,0,0}});
     
   }
 
