@@ -5,11 +5,11 @@
 //--muons => decay to muons not electrons (if ommitted will decay to electrons)
 //--tslope => give t distribution slope
 //--flat => give relative amount of flat production angle compared to t distribution
-#include "core/vector_exchange.hpp"
-#include "core/pseudoscalar_exchange.hpp"
-#include "core/pomeron_exchange.hpp"
-#include "core/amplitude_sum.hpp"
-#include "core/baryon_resonance.hpp"
+#include "amplitudes/vector_exchange.hpp"
+#include "amplitudes/pseudoscalar_exchange.hpp"
+#include "amplitudes/pomeron_exchange.hpp"
+#include "amplitudes/amplitude_sum.hpp"
+#include "amplitudes/baryon_resonance.hpp"
 jpacPhoto::amplitude_sum* Amplitude(Int_t mode);
  
 void CLAS12_ep_pJpsi_t_s(C12Config config) {
@@ -100,7 +100,7 @@ jpacPhoto::amplitude_sum* Amplitude(Int_t mode){
   using namespace jpacPhoto;
 
   reaction_kinematics * ptr = new reaction_kinematics(3.0969160);//Jpsi mass
-  ptr->set_meson_JP(1, -1);
+  ptr->set_JP(1, -1);
  
   // ---------------------------------------------------------------------------
   // S - CHANNEL
