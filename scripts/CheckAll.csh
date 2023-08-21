@@ -36,3 +36,6 @@ echo 'Checking     CLAS24_JPAC_nZc.C'
 clas12-elSpectro --ebeam 22 --seed 2132 --trig 1000 --misc '--tslope=4 --flat=1 --muons  --jpac=1' CLAS24_JPAC_nZc.C
 echo 'Checking     CLAS24_JPAC_pX.C'
 clas12-elSpectro --ebeam 22 --seed 2132 --trig 1000 --misc '--tslope=4 --flat=1 --muons  --jpac=1' CLAS24_JPAC_pX.C
+echo 'Checking     CLAS12_pEtaprime_Eta_Flat_s.C'
+clas12-elSpectro --ebeam 22 --seed 2132 --trig 1000 --misc '--tslope=4 --flat=1 --muons  --jpac=1' CLAS12_pEtaprime_Eta_Flat_s.C
+
