@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
    TString ELSPECTRO = gSystem->Getenv("ELSPECTRO");
    
    // app->ProcessLine(Form(".x %s/core/src/Load.C",gSystem->Getenv("ELSPECTRO")));
-   app->ProcessLine("gROOT->SetMacroPath(\"$C12ELSPECTRO/scripts/\")");
+   app->ProcessLine("gROOT->SetMacroPath(\"./:$C12ELSPECTRO/scripts/\")");
    app->ProcessLine(Form(".x %s/scripts/C12Init.C",gSystem->Getenv("C12ELSPECTRO")));
 
    //Load C12Config class
@@ -85,6 +85,7 @@ int main(int argc, char **argv) {
   //check if macro exists in scripts
    TString fname("$C12ELSPECTRO/scripts/");
    fname+=macroName;
+   /*
    if(gSystem->FindFile("",fname)==nullptr){//script does not exist
      //////////////////////////////////////
      ///Here we allow the possibility the script exists
@@ -92,6 +93,7 @@ int main(int argc, char **argv) {
      gSystem->Exec(Form("wget https://raw.githubusercontent.com/dglazier/clas12-elSpectro/main/scripts/%s",macroName.Data()));
      gSystem->Exec(Form("mv %s $C12ELSPECTRO/scripts/.",macroName.Data()));
    }
+   */
    //e.g. C12Config config(1,2132,"clas12-elspectro.dat",10.600000);
    app->ProcessLine(config.GetContructorString());
    //run macro
